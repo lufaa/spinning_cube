@@ -114,11 +114,13 @@ int main()
     Vector2 screenPoints[8]; 
     float angle = 0;
     float angle2 = 0;
+    float angle3 = 0;
     float time = 0;
     float dt = 1.0f/FPS;
     int counter = 0;
-    int random = rand()%10;
-    int random2 = rand()%10;
+    int random = rand()%361;
+    int random2 = rand()%361;
+    int random3 = rand()%361;
     Color cubeColor = GenerateRandomColor();
     Color backgroundColor = GenerateRandomColor();
     while (!WindowShouldClose())
@@ -135,11 +137,13 @@ int main()
             counter = 0;
             random = rand()%361;
             random2 = rand()%361;
+            random3 = rand()%361;
             cubeColor = GenerateRandomColor();
             backgroundColor = GenerateRandomColor();
         }
         angle += dt*random;
         angle2 += dt*random2;
+        angle3 += dt*random3;
         ClearBackground(backgroundColor);
         for(int i = 0;i<8;i++)
         {         
@@ -148,7 +152,7 @@ int main()
 
             RotatePointY(p, angle);  // obrót wokół własnej osi
             RotatePointX(p,angle2);
-            RotatePointZ(p,angle);
+            RotatePointZ(p,angle3);
             TranslateZ(p, 1.0f);       // przesunięcie w świat
             screenPoints[i] = PointToScreen(ProjectPoint(p));
             //DrawPoint(screenPoints[i]);
