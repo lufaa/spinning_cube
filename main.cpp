@@ -117,12 +117,21 @@ int main()
     float angle3 = 0;
     float time = 0;
     float dt = 1.0f/FPS;
-    int counter = 0;
+    int counterX = 0;
+    int counterY = 0;
+    int counterZ = 0;
+    int counterColor = 0;
     int random = rand()%361;
     int random2 = rand()%361;
     int random3 = rand()%361;
     Color cubeColor = GenerateRandomColor();
     Color backgroundColor = GenerateRandomColor();
+    float minTime = 1.0f;
+    float maxTime = 4.0f;
+    float timeToRandomizeX = minTime + (float)rand() / RAND_MAX * maxTime;
+    float timeToRandomizeY = minTime + (float)rand() / RAND_MAX * maxTime;
+    float timeToRandomizeZ = minTime + (float)rand() / RAND_MAX * maxTime;
+    float timeToRandomizeColor = minTime + (float)rand() / RAND_MAX * maxTime;
     while (!WindowShouldClose())
     {
 
@@ -131,19 +140,41 @@ int main()
         BeginDrawing();
         
         
-        counter++;
-        if(counter/(FPS*3) == 1)
+        counterX++;
+        counterY++;
+        counterZ++;
+        counterColor++;
+        if(counterX/(FPS*timeToRandomizeX) >= 1.0)
         {
-            counter = 0;
+            timeToRandomizeX = minTime + (float)rand() / RAND_MAX * maxTime;
+            counterX = 0;
             random = rand()%361;
+        }
+        if(counterY/(FPS*timeToRandomizeY) >= 1.0)
+        {
+            timeToRandomizeY = minTime + (float)rand() / RAND_MAX * maxTime;
+            counterY = 0;
             random2 = rand()%361;
+            
+        }
+        if(counterZ/(FPS*timeToRandomizeZ) >= 1.0)
+        {
+            timeToRandomizeZ = minTime+ (float)rand() / RAND_MAX * maxTime;
+            counterZ = 0;
             random3 = rand()%361;
-            cubeColor = GenerateRandomColor();
+    
+        }
+        if(counterColor/(FPS*timeToRandomizeColor) >= 1.0)
+        {
+            timeToRandomizeColor = minTime + (float)rand() / RAND_MAX * maxTime;
             backgroundColor = GenerateRandomColor();
+            cubeColor = GenerateRandomColor();
+            counterColor = 0;
         }
         angle += dt*random;
         angle2 += dt*random2;
         angle3 += dt*random3;
+        
         ClearBackground(backgroundColor);
         for(int i = 0;i<8;i++)
         {         
